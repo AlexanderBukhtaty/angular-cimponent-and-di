@@ -1,7 +1,7 @@
 :host() {
     display: block;
 }
-:host(.isClosedDescription) {
+:host(.isOpenDescription) {
     background-color: #ffd1d1;
 }
 :host-context(.todo-list) {

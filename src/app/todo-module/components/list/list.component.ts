@@ -1,6 +1,7 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren, QueryList, ElementRef, Inject, Host, Optional } from '@angular/core';
 
-import { ItemComponent, ITodoItemData } from '../item/item.component';
+import { ItemComponent } from '../item/item.component';
+import { TodoService, ITodoItemData } from '../..//services/todo.service';
 
 @Component({
   selector: 'app-list',
@@ -14,17 +15,21 @@ export class ListComponent implements OnInit, AfterViewInit {
   @ViewChildren('todoItem')
   private itemsComponents: QueryList<ItemComponent>;
 
-  constructor() {
-    this.items = [
-      { name: 'task1.name', desc: 'task1.description'},
-      { name: 'task2.name', desc: 'task2.description'},
-      { name: 'task3.name', desc: 'task3.description'},
-      { name: 'task4.name', desc: 'task4.description'}
-    ];
+  constructor(
+    private todoService: TodoService,
+    // @Inject(TodoService) private todoService: TodoService,
+    // @Host() @Inject(TodoService) private todoService: TodoService,
+    // @Optional() @Inject('sameService') private sameService: any,
+    // @Inject('SAME_CONSTANT') private sameConstant: string,
+    // @Inject('todos') public todos: any[],
+    // @Inject('MULTI_DEPENDENCY') private multiDep: any,
+  ) {
+    this.items = todoService.getItems();
   }
 
 
   ngOnInit() {
+    console.log(this);
   }
 
   ngAfterViewInit() {

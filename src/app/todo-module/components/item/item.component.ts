@@ -1,9 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostBinding } from '@angular/core';
 
-export interface ITodoItemData {
-  name: string;
-  desc: string;
-}
+import { ITodoItemData } from '../..//services/todo.service';
 
 @Component({
   selector: 'app-item',
@@ -11,7 +8,7 @@ export interface ITodoItemData {
   styleUrls: ['./item.component.scss']
 })
 export class ItemComponent implements OnInit {
-  public isOpen: boolean = true;
+  @HostBinding('class.isOpenDescription') public isOpen: boolean = true;
   @Input() data: ITodoItemData;
   @Output() onRemove: EventEmitter<any> = new EventEmitter();
 
