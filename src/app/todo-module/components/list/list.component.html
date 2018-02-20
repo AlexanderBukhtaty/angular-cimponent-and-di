@@ -1,0 +1,14 @@
+<div class="todo-list">
+  <div class="todo-list-title">
+    TODO List app
+  </div>
+  <div class="todo-list-form">
+    <input #newTodoName type="text">
+    <button (click)="addTask(newTodoName.value)">add task</button>
+  </div>
+  <div class="todo-list-content">
+    <ng-container *ngFor="let item of items; let i = index">
+      <app-item [data]="item" (onRemove)="removeTask(i)"></app-item>
+    </ng-container>
+  </div>
+</div>
