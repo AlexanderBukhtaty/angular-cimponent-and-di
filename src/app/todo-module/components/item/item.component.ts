@@ -1,20 +1,26 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostBinding, ContentChild, AfterContentInit } from '@angular/core';
 
 import { ITodoItemData } from '../..//services/todo.service';
 
 @Component({
   selector: 'app-item',
   templateUrl: './item.component.html',
-  styleUrls: ['./item.component.scss']
+  styleUrls: ['./item.component.scss'],
+  exportAs: 'todoItem'
 })
-export class ItemComponent implements OnInit {
+export class ItemComponent implements OnInit, AfterContentInit {
   @HostBinding('class.isOpenDescription') public isOpen: boolean = true;
-  @Input() data: ITodoItemData;
+  @Input('testData') data: ITodoItemData;
   @Output() onRemove: EventEmitter<any> = new EventEmitter();
-
+  @ContentChild('todoItemChild') todoItemChild;
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngAfterContentInit() {
+    console.log('ngAfterContentInit-------------------');
+    console.log(this.todoItemChild);
   }
 
   toggleDescription() {

@@ -13,7 +13,11 @@
   </div>
   <div class="todo-list-content">
     <ng-container *ngFor="let item of items; let i = index">
-      <app-item #todoItem [data]="item" (onRemove)="removeTask(i)"></app-item>
+      <h3>{{ i }}</h3>
+      <app-item #todoItem="todoItem" [testData]="item" (onRemove)="removeTask(i)">
+        <div class='todo-list-item-desc--first'>first</div>
+        <div #todoItemChild class='todo-list-item-desc--second'>second</div>
+      </app-item>
     </ng-container>
   </div>
 </div>

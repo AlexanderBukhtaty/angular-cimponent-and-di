@@ -6,7 +6,7 @@ import { TodoService, ITodoItemData } from '../..//services/todo.service';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit, AfterViewInit {
   public items: ITodoItemData[] = [];
@@ -19,10 +19,10 @@ export class ListComponent implements OnInit, AfterViewInit {
     private todoService: TodoService,
     // @Inject(TodoService) private todoService: TodoService,
     // @Host() @Inject(TodoService) private todoService: TodoService,
-    // @Optional() @Inject('sameService') private sameService: any,
-    // @Inject('SAME_CONSTANT') private sameConstant: string,
-    // @Inject('todos') public todos: any[],
-    // @Inject('MULTI_DEPENDENCY') private multiDep: any,
+    @Optional() @Inject('sameService') private sameService: any,
+    @Inject('SAME_CONSTANT') private sameConstant: string,
+    @Inject('FACTORY_ITEMS') public factoryItems: any,
+    @Inject('MULTI_DEPENDENCY') private multiDep: any,
   ) {
     this.items = todoService.getItems();
   }
@@ -44,13 +44,13 @@ export class ListComponent implements OnInit, AfterViewInit {
         name: taskName,
         desc: this.newTaskDescription.nativeElement.value
       };
-      this.items.push( newTask );
+      this.todoService.addItem(newTask);
     }
   }
 
 
   removeTask(index: number) {
-    this.items.splice(index, 1);
+    this.todoService.removeItem(index);
   }
 
   collapseAll() {
@@ -58,10 +58,10 @@ export class ListComponent implements OnInit, AfterViewInit {
       item.isOpen = false;
     });
   }
-  
+
   openAll() {
     this.itemsComponents.forEach((item) => {
       item.isOpen = true;
     });
-  }  
+  }
 }

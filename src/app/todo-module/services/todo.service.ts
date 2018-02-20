@@ -7,19 +7,30 @@ export interface ITodoItemData {
 
 @Injectable()
 export class TodoService {
+  public items: ITodoItemData[];
   // public otherService: OtherService;
+
   constructor(
-  // injector: Injector
+    // injector: Injector
   ) {
-  // this.otherService  = injector.get(OtherService);
+    // this.otherService  = injector.get(OtherService);
+  this.items = [
+      { name: 'task1.name', desc: 'task1.description'},
+      { name: 'task2.name', desc: 'task2.description'},
+      { name: 'task3.name', desc: 'task3.description'}
+    ];
   }
 
   getItems(): ITodoItemData[] {
-    return [
-      { name: 'task1.name', desc: 'task1.description'},
-      { name: 'task2.name', desc: 'task2.description'},
-      { name: 'task3.name', desc: 'task3.description'},
-      { name: 'task4.name', desc: 'task4.description'}
-    ];
+    return this.items;
   }
+
+  addItem(item: ITodoItemData) {
+    this.items.push(item);
+  }
+
+  removeItem (id: number) {
+    this.items.splice(id, 1);
+  }
+
 }
