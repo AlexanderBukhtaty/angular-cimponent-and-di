@@ -1,0 +1,11 @@
+:host() {
+    display: block;
+}
+:host(.isClosedDescription) {
+    background-color: #ffd1d1;
+}
+:host-context(.todo-list) {
+    &:not(:last-child) {
+        margin-bottom: 10px;
+    }
+}

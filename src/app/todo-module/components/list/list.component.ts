@@ -1,13 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ITodoItemData } from '../item/item.component';
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  public items = ['task1', 'task2', 'task3', 'task4'];
-  constructor() { }
+  public items: ITodoItemData[] = [];
+
+  constructor() {
+    this.items = [
+      { name: 'task1.name', desc: 'task1.description'},
+      { name: 'task2.name', desc: 'task2.description'},
+      { name: 'task3.name', desc: 'task3.description'},
+      { name: 'task4.name', desc: 'task4.description'}
+    ];
+  }
 
 
   ngOnInit() {
@@ -16,7 +26,11 @@ export class ListComponent implements OnInit {
 
   addTask(taskName: string) {
     if (taskName) {
-      this.items.push(taskName);
+      let newTask = {
+        name: taskName,
+        desc: 'test.description'
+      };
+      this.items.push( newTask );
     }
   }
 

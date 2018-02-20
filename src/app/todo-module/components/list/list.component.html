@@ -3,12 +3,13 @@
     TODO List app
   </div>
   <div class="todo-list-form">
-    <input #newTodoName type="text">
+    <input #newTodoName type="text" placeholder="Имя задачи">
+    <textarea #newTodoDesc name="testDescription" id="" cols="20" rows="2"></textarea>
     <button (click)="addTask(newTodoName.value)">add task</button>
   </div>
   <div class="todo-list-content">
     <ng-container *ngFor="let item of items; let i = index">
-      <app-item [data]="item" (onRemove)="removeTask(i)"></app-item>
+      <app-item #todoItem [data]="item" [ngClass]="{'isClosedDescription': !todoItem.isOpen}" (onRemove)="removeTask(i)"></app-item>
     </ng-container>
   </div>
 </div>
