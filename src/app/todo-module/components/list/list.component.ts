@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren, QueryList, ElementRef } from '@angular/core';
 
-import { ITodoItemData } from '../item/item.component';
+import { ItemComponent, ITodoItemData } from '../item/item.component';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, AfterViewInit {
   public items: ITodoItemData[] = [];
+  @ViewChild('newTodoDesc', { read: ElementRef })
+  private newTaskDescription;
+  @ViewChildren('todoItem')
+  private itemsComponents: QueryList<ItemComponent>;
 
   constructor() {
     this.items = [
@@ -23,12 +27,17 @@ export class ListComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngAfterViewInit() {
+    this.itemsComponents.changes.subscribe((val) => {
+      console.log(val);
+    });
+  }
 
   addTask(taskName: string) {
     if (taskName) {
       let newTask = {
         name: taskName,
-        desc: 'test.description'
+        desc: this.newTaskDescription.nativeElement.value
       };
       this.items.push( newTask );
     }
@@ -38,4 +47,16 @@ export class ListComponent implements OnInit {
   removeTask(index: number) {
     this.items.splice(index, 1);
   }
+
+  collapseAll() {
+    this.itemsComponents.forEach((item) => {
+      item.isOpen = false;
+    });
+  }
+  
+  openAll() {
+    this.itemsComponents.forEach((item) => {
+      item.isOpen = true;
+    });
+  }  
 }

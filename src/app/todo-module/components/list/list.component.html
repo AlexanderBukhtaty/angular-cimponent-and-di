@@ -6,6 +6,10 @@
     <input #newTodoName type="text" placeholder="Имя задачи">
     <textarea #newTodoDesc name="testDescription" id="" cols="20" rows="2"></textarea>
     <button (click)="addTask(newTodoName.value)">add task</button>
+    <div class="todo-list-controls">
+      <button (click)="openAll()">openAll</button>
+      <button (click)="collapseAll()">collapseAll</button>
+    </div>
   </div>
   <div class="todo-list-content">
     <ng-container *ngFor="let item of items; let i = index">
